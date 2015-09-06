@@ -24,22 +24,22 @@ const (
 )
 
 
-//·µ»Ø¸ñÊ½£º1389058332
+//è¿”å›æ ¼å¼ï¼š1389058332
 func Now() int64{
     return time.Now().Unix()
 }
 
-//·µ»Ø¸ñÊ½£º2014-01-08 09:04:41
+//è¿”å›æ ¼å¼ï¼š2014-01-08 09:04:41
 func NowFormat() string{
     return time.Now().Format("2006-01-02 15:04:05")
 }
 
-//·µ»Ø¸ñÊ½£º2014-01-08 09:04:41
-func TimeFormat(timestamp int)string{
+//è¿”å›æ ¼å¼ï¼š2014-01-08 09:04:41
+func TimeFormat(timestamp int64)string{
     return time.Unix(timestamp,0).Format("2006-01-02 15:04:05")
 }
 
-//²ÎÊı¸ñÊ½£º2014-01-08 09:04:41
+//å‚æ•°æ ¼å¼ï¼š2014-01-08 09:04:41
 func StrToTimestamp(s string) int64{
     t,_ := time.Parse("2006-01-02 15:04:05",s)   //   "2014-01-08 09:04:41"
     return t.Unix()

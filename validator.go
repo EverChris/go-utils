@@ -1,29 +1,43 @@
 package nova
 
 import(
-    //"regexp"
+    "regexp"
     "strings"
+    "strconv"
 )
 
 func IsEmail(s string) bool{
-    return true
+    reg := regexp.MustCompile(`^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$`)
+    return reg.MatchString(s)
 }
 
-func IsTelno(s string) bool{
-    return true
+func IsTelno(i int) bool{
+    reg := regexp.MustCompile(`^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$`)
+    return reg.MatchString(strconv.Itoa(i))
 }
 
 func IsIPStr(s string) bool{
+    reg := regexp.MustCompile(`^(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])$`)
+    return reg.MatchString(s)
+}
+
+//å››ä¸ªå­—èŠ‚ï¼Œ32ä½æ•´æ•°ï¼Œint32
+func IsIPInt(i int) bool{
+    if i > 4294967295 || i < 0 {
+        return false
+    }
     return true
 }
 
-func IsIPInt(i int) bool{
-    return true
+func IsURL(s string) bool{
+    reg := regexp.MustCompile(`[a-zA-z]+://[^\s]*`)
+    return reg.MatchString(s)
 }
 
 //scheme:http,rtmp,rtmfp
-func IsURL(s string, scheme string) bool{
-    return true
+func IsSpecifiedURL(s, scheme string) bool{
+    reg := regexp.MustCompile(scheme+`://[^\s]*`)
+    return reg.MatchString(s)
 }
 
 //Unix directory starts by `/`
@@ -31,9 +45,14 @@ func IsUnixDir(s string) bool{
    return strings.HasPrefix(s,`/`)
 }
 
-//Ö»ÄÜÓÉ×ÖÄ¸¡¢Êý×ÖºÍÏÂ»®Ïß×éºÏ£¬ÇÒÊ××Ö·û²»ÄÜÊÇÊý×Ö
+//åªèƒ½ç”±å­—æ¯ã€æ•°å­—å’Œä¸‹åˆ’çº¿ç»„åˆï¼Œä¸”é¦–å­—ç¬¦ä¸èƒ½æ˜¯æ•°å­—
 func IsIllegalName(s string) bool{
-    return true
+    b := []byte(s)
+    if b[0] >= 48 && b[0] <= 57 {
+       return false
+    }
+    reg := regexp.MustCompile(`^[A-Za-z0-9_]+$`)
+    return reg.MatchString(s)
 }
 
 func HasPrefix(s, prefix string) bool{

@@ -3,7 +3,7 @@ package nova
 import (
     . "fmt"
     "strconv"
-    "time"
+
 )
 
 func main() {
@@ -47,10 +47,19 @@ func (ip IPAddr) String() string {
     return Sprintf("%v.%v.%v.%v", ip[0], ip[1], ip[2], ip[3])
 }
 
-
-func Time() string{
-    return time.Now().Format("2006-1-2 15:04:05")
+//二进制转十六进制
+func btox(b string) string {
+    base, _ := strconv.ParseInt(b, 2, 10)
+    return strconv.FormatInt(base, 16)
 }
+
+//十六进制转二进制
+func xtob(x string) string {
+    base, _ := strconv.ParseInt(x, 16, 10)
+    return strconv.FormatInt(base, 2)
+}
+
+
 
 
 
